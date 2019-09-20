@@ -55,7 +55,7 @@ class PlayState extends FlxState
 
 	var sprites_camera:FlxCamera;
 
-	var ui_height = 60;
+	var ui_height = 40;
 
 	var ui_padding = 4;
 
@@ -73,7 +73,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		FlxAssets.FONT_DEFAULT = AssetPaths.SharpRetro__ttf;
+		// FlxAssets.FONT_DEFAULT = AssetPaths.Oleaguid__ttf;
 
 		FlxG.mouse.useSystemCursor = true;
 		FlxG.autoPause = false;
@@ -81,12 +81,13 @@ class PlayState extends FlxState
 		sprites_camera = new FlxCamera(0, 0, FlxG.width, FlxG.height - ui_height);
 		sprites_camera.bgColor = Colors.DARKGREY;
 		sprites_camera.setFilters([new ShaderFilter(new FlxShader())]);
+		sprites_camera.scroll.y -= 4;
 		FlxG.cameras.add(sprites_camera);
 		FlxCamera.defaultCameras = [sprites_camera];
 		FlxG.game.stage.quality = StageQuality.LOW;
 		FlxG.resizeWindow(480, 480);
 
-		zoom = 3;
+		zoom = 2;
 
 		sprites = new FlxTypedGroup();
 		default_sprites = new FlxTypedGroup();
@@ -185,9 +186,10 @@ class PlayState extends FlxState
 
 					default_sprites.exists = false;
 					if (!sprites.exists) {
-						scale_up(sprites);
 						sprites.exists = true;
 					}
+
+					scale_up(sprites);
 
 					return;
 				}
@@ -234,7 +236,7 @@ class PlayState extends FlxState
 	{	
 		var ui_top = FlxG.height - ui_height;
 
-		var font_size = 16;
+		var font_size = 8;
 
 		var ui_camera = FlxG.camera;
 		ui_camera.setSize(FlxG.width, ui_height);
@@ -243,23 +245,25 @@ class PlayState extends FlxState
 
 		var ui_load_btn = new FlxButton(ui_padding, ui_padding, 'Load', open_file);
 		ui_load_btn.label.setFormat(FlxAssets.FONT_DEFAULT, font_size);
-		ui_load_btn.loadGraphic(AssetPaths.button__png, true, 60, 24);
+		ui_load_btn.loadGraphic(AssetPaths.button__png, true, 36, 14);
+		for (point in ui_load_btn.labelOffsets) {	point.y = -1; }
 		ui_load_btn.camera = ui_camera;
 
 		var ui_filter_btn = new FlxButton(ui_padding,  ui_padding + ui_load_btn.height + ui_padding, 'Filter', toggle_filter);
 		ui_filter_btn.label.setFormat(FlxAssets.FONT_DEFAULT, font_size);
-		ui_filter_btn.loadGraphic(AssetPaths.button__png, true, 60, 24);
+		ui_filter_btn.loadGraphic(AssetPaths.button__png, true, 36, 14);
+		for (point in ui_filter_btn.labelOffsets) { point.y = -1; }
 		ui_filter_btn.camera = ui_camera;
 
-		var ui_width_text = new FlxText(ui_load_btn.x + ui_load_btn.width + ui_padding + 64, ui_padding, 64, 'width:', font_size);
+		var ui_width_text = new FlxText(ui_load_btn.x + ui_load_btn.width + ui_padding + 12, ui_padding, 38, 'width:', font_size);
 		ui_width_text.alignment = FlxTextAlign.RIGHT;
 		ui_width_text.camera = ui_camera;
 
-		var ui_height_text = new FlxText(ui_width_text.x, ui_width_text.y + ui_width_text.height + ui_padding, 64, 'height:', font_size);
+		var ui_height_text = new FlxText(ui_width_text.x, ui_width_text.y + ui_width_text.height + ui_padding, 38, 'height:', font_size);
 		ui_height_text.alignment = FlxTextAlign.RIGHT;
 		ui_height_text.camera = ui_camera;
 
-		var ui_width_text_number = new FlxInputText(ui_height_text.x + ui_height_text.width + ui_padding, ui_width_text.y, 36, '$sprite_width', font_size, FlxColor.WHITE, Colors.GREY);
+		var ui_width_text_number = new FlxInputText(ui_height_text.x + ui_height_text.width + ui_padding, ui_width_text.y, 18, '$sprite_width', font_size, FlxColor.WHITE, Colors.GREY);
 		ui_width_text_number.alignment = FlxTextAlign.RIGHT;
 		ui_width_text_number.filterMode = FlxInputText.ONLY_NUMERIC;
 		ui_width_text_number.fieldBorderThickness = 0;
@@ -269,7 +273,7 @@ class PlayState extends FlxState
 		}
 		ui_width_text_number.camera = ui_camera;
 
-		var ui_height_text_number = new FlxInputText(ui_width_text_number.x, ui_height_text.y, 36, '$sprite_height', font_size, FlxColor.WHITE, Colors.GREY);
+		var ui_height_text_number = new FlxInputText(ui_width_text_number.x, ui_height_text.y, 18, '$sprite_height', font_size, FlxColor.WHITE, Colors.GREY);
 		ui_height_text_number.alignment = FlxTextAlign.RIGHT;
 		ui_height_text_number.filterMode = FlxInputText.ONLY_NUMERIC;
 		ui_height_text_number.fieldBorderThickness = 0;
