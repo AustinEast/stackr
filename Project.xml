@@ -44,8 +44,8 @@
 	<!--In case you want to use nape with flixel-->
 	<!--<haxelib name="nape-haxe4" />-->
 
-	<haxelib name="systools" />
-
+	<haxelib name="systools"/>
+    <ndll name="systools" haxelib="systools" />
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<!--Enable the Flixel core recording system-->
