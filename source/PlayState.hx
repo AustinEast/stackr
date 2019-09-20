@@ -73,8 +73,6 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		// FlxAssets.FONT_DEFAULT = AssetPaths.Oleaguid__ttf;
-
 		FlxG.mouse.useSystemCursor = true;
 		FlxG.autoPause = false;
 
